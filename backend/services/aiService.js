@@ -3,8 +3,9 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Read API key (allows GROQ_API_KEY or GEMINI_API_KEY for convenience)
+// Read API key and model config (allows GROQ_API_KEY or GEMINI_API_KEY for convenience)
 const apiKey = process.env.GROQ_API_KEY || process.env.GEMINI_API_KEY || '';
+const modelName = process.env.MODEL_NAME || 'llama-3.1-8b-instant';
 const groq = new Groq({ apiKey });
 
 const responseSchema = {
@@ -161,7 +162,7 @@ You MUST output JSON and fill every property in the schema. For any unmapped pro
 
   try {
     const response = await groq.chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
+      model: modelName,
       messages: [
         {
           role: 'system',
